@@ -1,0 +1,12 @@
+<%= simple_form_for(@idea) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+  </div>
+    <%= f.input :expression, label: "Express your ideas in few words" %>
+    <%= f.input :description %>
+    <%= f.input :relevant, input_html: { :checked => true }, as: :hidden %>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
