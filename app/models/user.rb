@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-	has_many :sources
+	has_many :origins
 	has_many :reviews
 	has_many :ideas
 	has_many :works

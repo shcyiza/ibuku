@@ -1,4 +1,32 @@
 <p id="notice"><%= notice %></p>
+<div class="row">
+	<div class="col-md-6">
+    <h1>Note for <strong>p<%=@note.page%></strong>.</h1>
+    <div class="col-md-6">
+			<%= link_to origin_path(@origin) do %>
+		    <%= image_tag @origin.origin_img.url(:origin_index), class: "origin-index" %>
+			<% end %>
+    </div>
+    <div class="col-md-6">
+      <i><%= @origin.title %></i><br><br>from: <b><%= @origin.author %></b>
+      <br><br>
+      <font size="2">Reference<i>(where is it in the origin)</i>:
+			<br><i>Page</i> <strong><%=@note.page%></strong>
+			<br><strong><%= @note.reference %></strong></font>
+    </div>
+		<div class="links btn-group">
+			<%= link_to 'Edit', edit_note_path(@note), class: "btn btn-custom" %>
+			<%= link_to "/notes/#{@note.id}/links", class: "btn btn-custom" do %>
+				Link to ideas <i class="fi-link"></i><sup><%=@note.links.count%></sup>
+			<%end%>
+		</div>
+	</div>
 
-<%= link_to 'Edit', edit_note_path(@note) %> |
-<%= link_to 'Back', notes_path %>
+<div class="col-md-6">
+<br><font size="6"><strong>Quote <i class="fi-quote"></i></strong></font>
+<%= simple_format(@note.quote, style: "font-size: 14px;") %>
+<p class="text-right"><font size="6"><stong><i class="fi-quote text-right"></stong></i></font></p>
+
+<br><strong>Commentary on this quote:</strong>
+<i><%= simple_format(@note.commentary) %></i>
+</div>

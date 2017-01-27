@@ -4,12 +4,13 @@ class IdeasController < ApplicationController
   # GET /ideas
   # GET /ideas.json
   def index
-    @ideas = Idea.where(user: current_user)
+    @ideas = current_user.ideas
   end
 
   # GET /ideas/1
   # GET /ideas/1.json
   def show
+    @notes = @idea.notes
   end
 
   # GET /ideas/new

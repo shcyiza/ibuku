@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 <h3><%= @idea.expression %></h3>
-<%= @idea.description %>
+<%= simple_format(@idea.description) %>
 <hr>
+<% @notes.each do |note| %>
+  <%= link_to simple_format(note.quote), note_path(note) %><br>
+<% end %>
 <%= link_to 'Edit', edit_idea_path(@idea) %> |
-<%= link_to 'Back', ideas_path %>
+<%= link_to ideas_path do %>
+  Link ideas <i class="fi-link"></i> <sup><%= @idea.links.count %></sup>
+<%end%>

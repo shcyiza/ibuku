@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170118125237) do
+ActiveRecord::Schema.define(version: 20170126235110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,24 +36,49 @@ ActiveRecord::Schema.define(version: 20170118125237) do
   create_table "links", force: :cascade do |t|
     t.integer "idea_id"
     t.integer "linkable_id"
-    t.string  "linked_type"
+    t.string  "linkable_type"
   end
 
   create_table "notes", force: :cascade do |t|
-    t.integer  "source_id"
+    t.integer  "origin_id"
     t.integer  "user_id"
     t.string   "reference"
-    t.string   "quote"
+    t.text     "quote"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "commentary"
+    t.integer  "page"
   end
 
-  add_index "notes", ["source_id"], name: "index_notes_on_source_id", using: :btree
+  add_index "notes", ["origin_id"], name: "index_notes_on_origin_id", using: :btree
   add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
 
   create_table "notes_ideas", id: false, force: :cascade do |t|
     t.integer "note_id"
     t.integer "idea_id"
+  end
+
+  create_table "origin_types", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "origins", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "author"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "user_id"
+    t.integer  "category_id"
+    t.string   "origin_img_file_name"
+    t.string   "origin_img_content_type"
+    t.integer  "origin_img_file_size"
+    t.datetime "origin_img_updated_at"
+    t.date     "published_on"
+    t.string   "editors"
+    t.string   "origin_type_id"
   end
 
   create_table "problematics", force: :cascade do |t|
@@ -75,30 +100,13 @@ ActiveRecord::Schema.define(version: 20170118125237) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
-    t.integer  "source_id"
+    t.integer  "origin_id"
   end
 
   create_table "shelves", force: :cascade do |t|
     t.integer "category_id"
     t.integer "categorizable_id"
     t.string  "categorized_type"
-  end
-
-  create_table "sources", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
-    t.string   "author"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "user_id"
-    t.integer  "category_id"
-    t.string   "source_img_file_name"
-    t.string   "source_img_content_type"
-    t.integer  "source_img_file_size"
-    t.datetime "source_img_updated_at"
-    t.date     "published_on"
-    t.string   "source_type"
-    t.string   "editors"
   end
 
   create_table "users", force: :cascade do |t|

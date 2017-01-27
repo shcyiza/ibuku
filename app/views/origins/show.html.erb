@@ -1,0 +1,118 @@
+<div class="row">
+
+	<div class="col-md-4">
+
+		<%= image_tag @origin.origin_img.url(:origin_show), class: "origin-show" %>
+
+	</div>
+
+	<div class="col-md-8">
+		<div class="links btn-group">
+			<%= link_to "Back", root_path, class: "btn btn-custom" %>
+			<% if user_signed_in? %>
+				<% if @origin.user_id == current_user.id %>
+					<%= link_to "Edit", edit_origin_path(@origin), class: "btn btn-custom" %>
+					<%= link_to "Delete", origin_path(@origin), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-custom" %>
+				<% end %>
+			<% end %>
+		</div>
+
+		<div class="origin-info">
+			<h2 class="origin-title"><%= @origin.title %></h2>
+			<h3 class="origin-author"><span>From</span> <%= @origin.author %></h3>
+			<h2 class="avg-rating">Average Rating</h2>
+			<div class="average-review-rating" data-score=<%= @average_review %>></div>
+			<span class="number-of-reviews"><a href="#" data-toggle="modal" data-target="#Modal4reviews">Based on <%= @origin.reviews.count %> reviews</a></span>
+			<p class="origin-desc"><%= simple_format(@origin.description.html_safe) %></p>
+			<h4><font size="1">published on <%= @origin.published_on %> by <%= @origin.editors %></font></h4>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+
+<% if current_user %>
+		<div class="reviews">
+			<!-- Where the reviews/ratings will go -->
+			<h1>Your notes for this origin <i class='fi-pencil'></i></h1>
+			<% @notes.each do |note| %>
+				<div class="col-md-6">
+					<hr>
+					<br><font size="6" color="#dab10d"><strong>Quote <i class="fi-quote"></i></strong></font>
+					<%= truncate_html(note.quote.html_safe, length: 155, omission: '...') %> <%= link_to "see more", note_path(note)%>
+					<p class="text-right"><font size="6" color="#dab10d"><stong><i class="fi-quote text-right"></stong></i></font></p>
+					<font size="2">P <strong><%= note.page %></strong>.
+					<br></strong><i>Extra reference</i>: <strong><%= note.reference %></strong></font><br>
+					<div class="links btn-group">
+								<%= link_to "See the full note", note_path(note), class: "btn btn-custom" %>
+								<%= link_to "Edit", edit_note_path(note), class: "btn btn-custom" %>
+								<%= link_to "/notes/#{note.id}/links", class: "btn btn-custom" do %>
+									Link to ideas <i class="fi-link"></i><sup><%= note.links.count%></sup>
+								<%end%>
+					</div>
+				</div>
+			<% end %>
+			<div>
+				<br><br>
+				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addnotes", style="padding: 12rem;"><i class='fi-plus'></i> Add notes</button>
+			</div>
+		</div>
+<% end %>
+	</div>
+
+</div>
+
+<!--modal for reveiew-->
+<div class="modal fade" id="Modal4reviews" tabindex="-1" role="dialog" aria-labelledby="Modal4reviews" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">Reviews</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= render @origin.reviews %>
+      </div>
+      <div class="modal-footer">
+				<div>
+					<% if current_user %>
+						<%= link_to "Add Review", new_origin_review_path(@origin), class: "btn-custom" %>
+					<% end %>
+				</div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal for new notes -->
+<% if current_user %>
+	<div class="modal fade" id="addnotes" tabindex="-1" role="dialog" aria-labelledby="addnotes" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-body">
+	        <%= render template: "notes/new" %>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+<% end %>
+<script>
+	$('.review-rating').raty({
+		readOnly: true,
+		score: function() {
+			return $(this).attr('data-score');
+		},
+		path: '/assets/'
+	});
+</script>
+
+
+<script>
+	$('.average-review-rating').raty({
+		readOnly: true,
+		path: '/assets/',
+		score: function() {
+			return $(this).attr('data-score')
+		}
+	});
+</script>

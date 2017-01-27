@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Origin Types</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @origin_types.each do |origin_type| %>
+      <tr>
+        <td><%= origin_type.name %></td>
+        <td><%= link_to 'Show', origin_type %></td>
+        <td><%= link_to 'Edit', edit_origin_type_path(origin_type) %></td>
+        <td><%= link_to 'Destroy', origin_type, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Origin type', new_origin_type_path %>

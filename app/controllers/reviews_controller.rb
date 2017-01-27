@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-	before_action :find_source
+	before_action :find_origin
 	before_action :find_review, only: [:edit, :update, :destroy]
 	before_action :authenticate_user!, only: [:new, :edit]
 
@@ -9,11 +9,11 @@ class ReviewsController < ApplicationController
 
 	def create
 		@review = Review.new(review_params)
-		@review.source_id = @source.id
+		@review.origin_id = @origin.id
 		@review.user_id = current_user.id
 
 		if @review.save
-			redirect_to source_path(@source)
+			redirect_to origin_path(@origin)
 		else
 			render 'new'
 		end
@@ -24,7 +24,7 @@ class ReviewsController < ApplicationController
 
 	def update
 		if @review.update(review_params)
-			redirect_to source_path(@source)
+			redirect_to origin_path(@origin)
 		else
 			render 'edit'
 		end
@@ -32,7 +32,7 @@ class ReviewsController < ApplicationController
 
 	def destroy
 		@review.destroy
-		redirect_to source_path(@source)
+		redirect_to origin_path(@origin)
 	end
 
 	private
@@ -41,8 +41,8 @@ class ReviewsController < ApplicationController
 			params.require(:review).permit(:rating, :comment)
 		end
 
-		def find_source
-			@source = Source.find(params[:source_id])
+		def find_origin
+			@origin = Origin.find(params[:origin_id])
 		end
 
 		def find_review

@@ -1,25 +1,49 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listing Notes</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @notes.each do |note| %>
-      <tr>
-        <td><%= link_to 'Show', note %></td>
-        <td><%= link_to 'Edit', edit_note_path(note) %></td>
-        <td><%= link_to 'Destroy', note, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <h1>All Your Notes<i class='fi-book-bookmark'></i></h1>
+    <%= form_tag notes_path, :method => :get do %>
+        <%= text_field_tag :search, params[:search] %>
+        <%= button_tag(type: "submit", :name => nil, class: "btn btn-default") do %>
+          <i class='fi-magnifying-glass'></i>
+        <% end %>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Note', new_note_path %>
+<div class="row">
+<hr>
+<% @origins_notes.each do |src, notes| %>
+<div class="col-md-6 notebyorigin">
+  <div class="col-md-6">
+    <div>
+      Notes for <strong><%= truncate_html(src.title, length: 35, omission: '...') %></strong>
+      <br>from: <b><%= src.author %></b>
+    </div>
+          <%= link_to origin_path(src) do %>
+            <%= image_tag src.origin_img.url(:origin_index), class: "origin-thumb" %>
+          <% end %>
+          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addnotes_<%=src.id%>"><i class='fi-plus'></i> Add notes</button>
+  </div>
+<% notes.sort_by{|notes| notes.page}.each do |note| %>
+  <div class="col-md-6">
+    <br><font size="6" color="#dab10d"><strong><i class="fi-quote"></i></strong></font>
+    <%= truncate_html(note.quote.html_safe, length: 130, omission: '...') %>
+    <%= link_to "see more", note_path(note), class: "alink"%>
+    <p class="text-right"><font size="6" color="#dab10d"><stong><i class="fi-quote text-right"></stong></i></font><i>pg <strong><%= note.page %></strong>.</i></p>
+    </strong><i>Extra reference</i>: <strong><%= note.reference %></strong></font>
+    <div>
+          <%= link_to "See the full note", note_path(note), class: "alink" %>|
+          <%= link_to "Edit", edit_note_path(note), class: "alink" %>
+    </div>
+    <hr>
+  </div>
+<% end %>
+<div class="modal fade" id="addnotes_<%=src.id%>" tabindex="-1" role="dialog" aria-labelledby="addnotes" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <h1>New notes <i class="fi-plus"></i></h1>
+        <%= render partial:'form', locals:{src: src} %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<% end %>
+</div>

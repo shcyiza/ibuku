@@ -1,0 +1,25 @@
+<%= simple_form_for @origin, :html => { :multipart => true } do |f| %>
+	<%= f.label "What is your origin?" %>
+	<br>
+	<%= collection_select(:origin, :origin_type_id, OriginType.all, :id, :name) %>
+	<br><br>
+	<%= f.label "Cover" %>
+	<%= f.file_field :origin_img %>
+	<%= f.input :title, label: "Origin Title" %>
+	<%= f.input :description, label: "Abstract", input_html: {style: "min-height: 250px;"} %>
+	<%= f.input :author %>
+	<div class="row">
+		<div class="col-md-8">
+			<%= f.input :editors, label: "Editor(s)"  %>
+		</div>
+		<div class="col-md-4">
+			<%= f.input :published_on, as: :string, placeholder: "#{Date.today}" %>
+		</div>
+	</div>
+	<%= f.button :submit, :class => 'btn-custom2' %>
+<% end %>
+<script>
+$( function() {
+	$( "#published_on" ).datepicker();
+} );
+</script

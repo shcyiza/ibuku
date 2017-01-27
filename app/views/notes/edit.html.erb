@@ -1,6 +1,6 @@
-<h1>Editing Note</h1>
-
-<%= render 'form' %>
-
+<div class="new-origin-form">
+<h1>Editing Note <i class="fi-page-edit"></i></h1>
+<%= render partial: 'form', locals:{src: @origin} %>
 <%= link_to 'Show', @note %> |
 <%= link_to 'Back', notes_path %>
+</div>

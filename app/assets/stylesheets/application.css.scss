@@ -12,10 +12,12 @@
  *
  *= require_tree .
  *= require_self
+  *= require jquery-ui/datepicker
  */
-@import url(http://fonts.googleapis.com/css?family=Lora|Ubuntu:300,400,500); 
+@import url(http://fonts.googleapis.com/css?family=Lora|Ubuntu:300,400,500);
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import 'foundation-icons';
 
 /* Variables, mixins, etc.. */
 
@@ -80,7 +82,7 @@ p.alert, p.notice {
 
 	.navbar-nav > .open > a, .navbar-nav > .open > a:hover, .navbar-nav > .open > a:focus {
 		background-color: darken(#f1c40f, 5%);
-		color: #fff;	
+		color: #fff;
 	}
 
 }
@@ -120,7 +122,7 @@ p.alert, p.notice {
 		background-color: #333;
 		color: #fff;
 		transition: 0.5s;
-	}	
+	}
 }
 
 .links {
@@ -132,35 +134,41 @@ p.alert, p.notice {
 
 }
 
-.source-links {
+.origin-links {
 
 	.btn-custom {
 		padding: 3px 10px;
 		font-weight: 300;
-		margin-top: 40px;	
+		margin-top: 40px;
 	}
 
 }
 
-/* Source styles */
+/* Origin styles */
 
-.source {
+.origin {
 	height: 350px;
 	width: 250px;
 	margin-bottom: 40px;
 	@include background-tile;
 }
 
-.source-show {
+.origin-thumb {
+	height: 179px;
+	width: 129px;
+	margin-bottom: 21px;
+}
+
+.origin-show {
 	height: 475px;
 	width: 325px;
 	@include background-tile;
 }
 
-.source-info {
+.origin-info {
 	@include background-tile;
 
-	.source-title {
+	.origin-title {
 		margin-top: 0;
 		font-size: 2em;
 	}
@@ -176,16 +184,16 @@ p.alert, p.notice {
 		font-style: italic;
 	}
 
-	.source-author {
+	.origin-author {
 		font-size: 1.5em;
 		margin-top: 10px;
 		margin-bottom: 10px;
 		span {
 			font-size: 0.80em;
-		}	
+		}
 	}
 
-	.source-desc {
+	.origin-desc {
 		font-size: 1.05em;
 		line-height: 1.5;
 		margin-bottom: 15px;
@@ -233,9 +241,9 @@ p.alert, p.notice {
 
 }
 
-/* New Source Form styles */
+/* New Origin Form styles */
 
-.new-source-form {
+.new-origin-form {
 	@include background-tile;
 
 	h1 {
@@ -246,16 +254,16 @@ p.alert, p.notice {
 		margin-bottom: 10px;
 	}
 
-	#source_source_img {
+	#origin_origin_img {
 		margin-bottom: 10px;
 	}
 
 }
 
 
-/* Edit Source Form styles */
+/* Edit Origin Form styles */
 
-.edit-source-form {
+.edit-origin-form {
 
 	@include background-tile;
 
@@ -263,11 +271,11 @@ p.alert, p.notice {
 		margin-top: 0;
 	}
 
-	#source_category_id {
+	#origin_category_id {
 		margin-bottom: 10px;
 	}
 
-	#source_source_img {
+	#origin_origin_img {
 		margin-bottom: 10px;
 	}
 
@@ -291,6 +299,18 @@ p.alert, p.notice {
 
 	}
 
+}
+
+.notebyorigin{
+	background-color: #ffffff;
+	border: 1px solid #969595;
+	border-radius: 4px;
+	box-shadow: 2px 2px 0px #888888;
+	margin: auto;
+}
+
+a:visited {
+  color: #5b768c;
 }
 
 

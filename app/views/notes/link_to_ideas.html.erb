@@ -1,0 +1,13 @@
+<%= @note.class %><br>
+<%= simple_format(@note.quote) %><br>
+<% @linked_ideas.each do |idea| %>
+  <%= link_to idea.expression, idea_path(idea) %><br>
+<% end %>
+<%= form_tag({"controller"=>"application", "action"=>"link_it"}, :method => "get") do %>
+
+<%= select_tag :idea_id, options_from_collection_for_select(@ideas, :id, :expression) %>
+<%= hidden_field_tag(:linkable_id, @note.id, readonly: true) %>
+<%= hidden_field_tag(:linkable_type, @note.class, readonly: true) %>
+
+  <%= button_tag(type: "submit", :name => "Link it", class:"btn-custom")  do %>Link it<% end %>
+<% end %>
