@@ -16,8 +16,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rails_admin'
 gem 'foundation-icons-sass-rails'
 gem 'truncate_html'
-gem 'sunspot_rails'
-gem 'sunspot_solr'
+gem 'pg_search'
 
 group :development, :test do
   gem 'byebug'

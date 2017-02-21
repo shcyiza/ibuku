@@ -3,8 +3,10 @@ class Idea < ActiveRecord::Base
   has_many :links
   has_many :shelves, as: :categorizable
   has_many :category, through: :shelves
-  has_many :works, through: :links
-  has_many :problematics, through: :links
+  has_many :notes, through: :links, source: :linkable, source_type: 'Note'
+  has_many :works, through: :links, source: :linkable, source_type: 'Work'
+  has_many :problematics, through: :links, source: :linkable, source_type: 'Problematic'
+  include PgSearch
 
   def linked_items
     linked_items = []
@@ -34,12 +36,5 @@ class Idea < ActiveRecord::Base
     return ideas_selection
   end
 
-  def notes
-    linked_items = []
-    self.links.where(linkable_type: "Note").each do |linked|
-      linked_items << linked.linkable
-    end
-    return linked_items
-  end
 
 end

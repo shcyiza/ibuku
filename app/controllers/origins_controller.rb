@@ -3,10 +3,7 @@ class OriginsController < ApplicationController
 	before_action :authenticate_user!, only: [:new, :edit]
 
 	def index
-		@search = Origin.search do
-			fulltext params[:search]
-		end
-		@origins = @search
+		@origins = Origin.full_text_query(params[:search])
 	end
 
 	def show

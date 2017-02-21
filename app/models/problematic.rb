@@ -4,4 +4,5 @@ class Problematic < ActiveRecord::Base
   has_many :links ,as: :linkable
   has_many :ideas, through: :links
 
+
 end

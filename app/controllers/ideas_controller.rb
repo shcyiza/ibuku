@@ -1,5 +1,6 @@
 class IdeasController < ApplicationController
   before_action :set_idea, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /ideas
   # GET /ideas.json
@@ -10,7 +11,8 @@ class IdeasController < ApplicationController
   # GET /ideas/1
   # GET /ideas/1.json
   def show
-    @notes = @idea.notes
+    @notes = Note.where(idea_id: params[:id], user_id: current_user.id)
+    @origins_notes = @notes.group_by(&:origin)
   end
 
   # GET /ideas/new

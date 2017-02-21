@@ -2,12 +2,12 @@
 <div class="row">
 	<div class="col-md-3">
 		<%= link_to new_origin_path, class: "btn-custom2" do %>
-			<i class="fi-plus"></i> Add origin
+			<i class="fi-plus"></i> Add source
 		<% end %>
 	</div>
 	<div class="col-md-3">
 		<br>
-		<%= form_tag notes_path, :method => :get do %>
+		<%= form_tag root_path, :method => :get do %>
 				<%= text_field_tag :search, params[:search] %>
 				<%= button_tag(type: "submit", :name => nil, class: "btn btn-default") do %>
 					<i class='fi-magnifying-glass'></i>
@@ -22,14 +22,21 @@
 
 <% else %>
 	<div class="row">
-
 		<% @origins.each do |src| %>
-
+			<% if params[:search].present? %>
+				<% origin = src.searchable %>
+			<% else %>
+				<% origin = src %>
+			<% end %>
 			<div class="col-md-3">
-				<%= link_to src do %>
-					<%= image_tag src.origin_img.url(:origin_index), class: "origin" %>
-					<%= src.title %>
-				<%end%>
+				<div>
+					<%= link_to origin do %>
+						<%= image_tag origin.origin_img.url(:origin_index), class: "origin" %>
+						<%= origin.title %>
+					<%end%>
+					<br>
+					by: <%= origin.author %>
+				</div>
 			</div>
 
 		<% end %>

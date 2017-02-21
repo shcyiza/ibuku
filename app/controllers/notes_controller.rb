@@ -5,11 +5,19 @@ class NotesController < ApplicationController
   # GET /notes
   # GET /notes.json
   def index
-    @search = Note.where(user: current_user).search do
-      fulltext params[:search]
+    if params[:search].present?
+      @notes = Note.full_text_query(params[:search])
+    else
+      @notes = Note.where(user_id: current_user.id)
     end
+    @origins_notes = @notes.group_by(&:origin)
     @note = Note.new
-    @origins_notes = @search.results.group_by(&:origin)
+  end
+
+  def searched_in_idea
+    @idea = Idea.where(user_id: current_user.id)
+    @notes = Note.where(user_id: current_user.id, idea_id: @idea.id )
+    @origins_notes = @notes.group_by(&:origin)
   end
 
   # GET /notes/1
@@ -80,6 +88,10 @@ class NotesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_note
       @note = Note.find(params[:id])
+    end
+
+    def set_idea
+      @idea = Idea.find(params[:idea_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

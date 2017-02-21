@@ -5,4 +5,6 @@ class Work < ActiveRecord::Base
   has_many :ideas, through: :links
   has_many :shelves, as: :categorizable
   has_many :category, through: :shelves
+
+
 end
