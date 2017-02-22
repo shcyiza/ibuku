@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.1'
+gem 'rails', '5.0.0'
 gem 'pg'
-gem 'sass-rails', '~> 5.0'
-gem 'simple_form', '~> 3.1.0'
+gem 'sass-rails'
+gem 'simple_form'
 gem 'bootstrap-sass', '~> 3.3.4.1'
-gem 'devise', '~> 3.5.1'
-gem 'paperclip', '~> 4.2.1'
+gem 'devise'
+gem 'paperclip', git: "git://github.com/thoughtbot/paperclip.git"
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'

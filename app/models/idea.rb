@@ -9,11 +9,7 @@ class Idea < ActiveRecord::Base
   include PgSearch
 
   def linked_items
-    linked_items = []
-    self.links.each do |linked|
-      linked_items << linked.linkable
-    end
-    return linked_items
+    self.links.map {|l| l.linkable}
   end
 
   def self.linkable_for(linkable, user)

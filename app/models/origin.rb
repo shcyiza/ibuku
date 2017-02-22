@@ -14,7 +14,7 @@ class Origin < ActiveRecord::Base
 
 	def self.full_text_query search
 	  if search.present?
-			PgSearch.multisearch(search).order("content ASC")
+			PgSearch.multisearch(search).where(searchable_type: "Origin")
 		else
 		  Origin.order("title ASC")
 		end

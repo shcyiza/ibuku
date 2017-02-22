@@ -11,7 +11,7 @@ class IdeasController < ApplicationController
   # GET /ideas/1
   # GET /ideas/1.json
   def show
-    @notes = Note.where(idea_id: params[:id], user_id: current_user.id)
+    @notes = @idea.notes.where(user_id: current_user.id)
     @origins_notes = @notes.group_by(&:origin)
   end
 

@@ -6,7 +6,7 @@ class NotesController < ApplicationController
   # GET /notes.json
   def index
     if params[:search].present?
-      @notes = Note.full_text_query(params[:search])
+      @notes = Note.full_text_query(params[:search], current_user)
     else
       @notes = Note.where(user_id: current_user.id)
     end

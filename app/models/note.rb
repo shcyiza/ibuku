@@ -7,15 +7,27 @@ class Note < ActiveRecord::Base
   has_many :category, through: :shelves
   include PgSearch
 
-  multisearchable against: [:reference, :quote, :commentary, :page, :title, :description, :author, :editors,]
-  belongs_to :origin
-  delegate :title, to: :origin, prefix: true
-	delegate :description, to: :origin, prefix: true
-	delegate :author, to: :origin, prefix: true
-  delegate :editors, to: :origin, prefix: true
+  multisearchable against: [:reference, :quote, :commentary, :page, :origin_title, :origin_description, :origin_author, :origin_editors]
 
-  def self.full_text_query search
-      PgSearch.multisearch(search).where(searchable_type: "Note").map {|n| n.searchable}
+  def  origin_title
+    origin.title
+  end
+
+  def  origin_description
+    origin.description
+  end
+
+  def  origin_author
+    origin.author
+  end
+
+  def  origin_editors
+    origin.editors
+  end
+
+  def self.full_text_query(search, user)
+      PgSearch.multisearch(search).where(searchable_type: "Note").joins("INNER JOIN notes ON notes.id = pg_search_documents.searchable_id")
+      .merge(Note.where(user_id: user.id)).map {|n| n.searchable}
   end
 
   def self.searchable_in_ideas(idea)

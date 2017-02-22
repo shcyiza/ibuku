@@ -1,6 +1,7 @@
 PgSearch.multisearch_options = {
   using: {
-    tsearch: {:prefix => true, :any_word => true},
-    trigram: {}
-  }
+          tsearch: {:prefix => true},
+          trigram: {}
+          },
+  ignoring: :accents
 }
