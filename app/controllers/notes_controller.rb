@@ -5,6 +5,7 @@ class NotesController < ApplicationController
   # GET /notes
   # GET /notes.json
   def index
+    @real_count = Note.all.count
     if params[:search].present?
       @notes = Note.full_text_query(params[:search], current_user)
     else

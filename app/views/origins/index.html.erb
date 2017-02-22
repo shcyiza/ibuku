@@ -16,9 +16,11 @@
 	</div>
 </div>
 <br><br>
-<% if @origins.count == 0 %>
+<% if @real_count == 0 %>
+	<h1>There are no source currently in this category</h1>
 
-	<h1>There are no origins currently in this category</h1>
+<% elsif @origins.count == 0 && params[:search].present? %>
+	<h1>There are no result for "<%= params[:search] %>"</h1>
 
 <% else %>
 	<div class="row">
