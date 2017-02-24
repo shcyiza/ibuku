@@ -17,6 +17,7 @@ gem 'rails_admin'
 gem 'foundation-icons-sass-rails'
 gem 'truncate_html'
 gem 'pg_search'
+gem 'puma'
 
 group :development, :test do
   gem 'byebug'

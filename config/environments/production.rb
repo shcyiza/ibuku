@@ -3,7 +3,7 @@ Rails.application.configure do
 
   # Code is not reloaded between requests.
   config.cache_classes = true
-  config.secret_key = '2ba222b4b6404d1852c36b2f85615f61471c1b56d8aa3b791ac624a015af980ccc5b96f5cbb6a10bc7c045b4ec381184b9d25a3679cff10cb6f9a8caeacdb5da'     
+  config.secret_key = '2ba222b4b6404d1852c36b2f85615f61471c1b56d8aa3b791ac624a015af980ccc5b96f5cbb6a10bc7c045b4ec381184b9d25a3679cff10cb6f9a8caeacdb5da'
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -77,4 +77,18 @@ config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  #configuration for paperclip in production
+  config.active_record.dump_schema_after_migration = false
+   config.paperclip_defaults = {
+    :storage => :s3,
+    :s3_region=> 'us-west-2',
+    :s3_credentials => {
+      :bucket => ENV['S3_BUCKET_NAME'],
+      :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+      :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+    },
+    :url =>':s3_domain_url',
+    :path => '/:class/:attachment/:id_partition/:style/:filename',
+  } #configuration for paperclip in production end
 end
