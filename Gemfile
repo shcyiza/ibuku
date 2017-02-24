@@ -26,5 +26,4 @@ end
 
 group :production do
   gem 'aws-sdk'
-  gem 'rails_12factor'
 end
