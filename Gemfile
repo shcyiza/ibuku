@@ -18,7 +18,7 @@ gem 'foundation-icons-sass-rails'
 gem 'truncate_html'
 gem 'pg_search'
 gem 'puma'
-
+gem "paranoia", github: "rubysherpas/paranoia", branch: "rails5"
 group :development, :test do
   gem 'byebug'
   gem 'web-console', '~> 2.0'
