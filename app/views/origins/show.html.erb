@@ -38,7 +38,8 @@
 				<div class="col-md-6">
 					<hr>
 					<br><font size="6" color="#dab10d"><strong>Quote <i class="fi-quote"></i></strong></font>
-					<%= truncate_html(note.quote.html_safe, length: 155, omission: '...') %> <%= link_to "see more", note_path(note)%>
+					<%= truncate_html(note.quote.html_safe, length: 155, omission: '...') %>
+					<br><%= link_to "see more", note_path(note)%>
 					<p class="text-right"><font size="6" color="#dab10d"><stong><i class="fi-quote text-right"></stong></i></font></p>
 					<font size="2">P <strong><%= note.page %></strong>.
 					<br></strong><i>Extra reference</i>: <strong><%= note.reference %></strong></font><br>
@@ -56,7 +57,7 @@
 				<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addnotes", style="padding: 12rem;"><i class='fi-plus'></i> Add notes</button>
 			</div>
 		</div>
-<% end %>
+		<% end %>
 	</div>
 
 </div>

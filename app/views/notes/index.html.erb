@@ -29,7 +29,10 @@
     </strong><i>Extra reference</i>: <strong><%= note.reference %></strong></font>
     <div>
           <%= link_to "See the full note", note_path(note), class: "alink" %>|
-          <%= link_to "Edit", edit_note_path(note), class: "alink" %>
+          <%= link_to "Edit", edit_note_path(note), class: "alink" %> |
+          <%= link_to "/notes/#{note.id}/links", class: "btn btn-custom" do %>
+            Link to ideas <i class="fi-link"></i><sup><%= note.links.count%></sup>
+          <%end%>
     </div>
     <hr>
   </div>

@@ -13,5 +13,6 @@ Rails.application.routes.draw do
   get 'notes/:id/links', to:"notes#link_to_ideas"
   get 'linktoidea', to:"application#link_it"
   get 'ideas/:id/searched_in_idea', to:"notes#searched_in_idea"
+  get 'links/:id/delete', to:"links#destroy"
   root 'origins#index'
 end

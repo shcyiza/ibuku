@@ -32,5 +32,8 @@ class Idea < ActiveRecord::Base
     return ideas_selection
   end
 
+  def link(linkable)
+    self.links.where(linkable_id: linkable.id, linkable_type: linkable.class).first
+  end
 
 end

@@ -4,7 +4,7 @@ class ShelvesController < ApplicationController
   # GET /shelves
   # GET /shelves.json
   def index
-    @shelves = Shelve.all
+    @shelves = Shelf.all
   end
 
   # GET /shelves/1
@@ -14,7 +14,7 @@ class ShelvesController < ApplicationController
 
   # GET /shelves/new
   def new
-    @shelf = Shelve.new
+    @shelf = Shelf.new
   end
 
   # GET /shelves/1/edit
@@ -24,11 +24,11 @@ class ShelvesController < ApplicationController
   # POST /shelves
   # POST /shelves.json
   def create
-    @shelf = Shelve.new(shelf_params)
+    @shelf = Shelf.new(shelf_params)
 
     respond_to do |format|
       if @shelf.save
-        format.html { redirect_to @shelf, notice: 'Shelve was successfully created.' }
+        format.html { redirect_to @shelf, notice: 'Shelf was successfully created.' }
         format.json { render :show, status: :created, location: @shelf }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ShelvesController < ApplicationController
   def update
     respond_to do |format|
       if @shelf.update(shelf_params)
-        format.html { redirect_to @shelf, notice: 'Shelve was successfully updated.' }
+        format.html { redirect_to @shelf, notice: 'Shelf was successfully updated.' }
         format.json { render :show, status: :ok, location: @shelf }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class ShelvesController < ApplicationController
   def destroy
     @shelf.destroy
     respond_to do |format|
-      format.html { redirect_to shelves_url, notice: 'Shelve was successfully destroyed.' }
+      format.html { redirect_to shelves_url, notice: 'Shelf was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -64,7 +64,7 @@ class ShelvesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_shelf
-      @shelf = Shelve.find(params[:id])
+      @shelf = Shelf.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

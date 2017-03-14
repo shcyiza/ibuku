@@ -1,13 +1,52 @@
-<%= @note.class %><br>
-<%= simple_format(@note.quote) %><br>
-<% @linked_ideas.each do |idea| %>
-  <%= link_to idea.expression, idea_path(idea) %><br>
-<% end %>
-<%= form_tag({"controller"=>"application", "action"=>"link_it"}, :method => "get") do %>
+<h2>Link a note to an idea <i class="fi-link"></i></h2>
+<br>
+<br>
+<div class="row">
+  <div class="col-md-4">
+    <div>
+      <strong><%= truncate_html(@origin.title, length: 35, omission: '...') %></strong>
+      <br>from: <b><%= @origin.author %></b>
+    </div>
+          <%= link_to origin_path(@origin) do %>
+            <%= image_tag @origin.origin_img.url(:origin_index), class: "origin-thumb" %>
+          <% end %>
+  </div>
 
-<%= select_tag :idea_id, options_from_collection_for_select(@ideas, :id, :expression) %>
-<%= hidden_field_tag(:linkable_id, @note.id, readonly: true) %>
-<%= hidden_field_tag(:linkable_type, @note.class, readonly: true) %>
+  <div class="col-md-8">
+    <br><font size="6" color="#dab10d"><strong><i class="fi-quote"></i></strong></font>
+    <%= truncate_html(@note.quote.html_safe, length: 130, omission: '...') %>
+    <%= link_to "see more", note_path(@note), class: "alink"%>
+    <p class="text-right"><font size="6" color="#dab10d"><stong><i class="fi-quote text-right"></stong></i></font><i>pg <strong><%= @note.page %></strong>.</i></p>
+  </strong><i>Extra reference</i>: <strong><%= @note.reference %></strong></font>
+    <div>
+          <%= link_to "See the full note", note_path(@note), class: "alink" %>|
+          <%= link_to "Edit", edit_note_path(@note), class: "alink" %>
+    </div>
+    <hr>
+  </div>
+</div>
+<div class="row">
+  <%= form_tag({"controller"=>"application", "action"=>"link_it"}, :method => "get") do %>
+  <div class="col-md-6">
+    <%= hidden_field_tag(:linkable_id, @note.id, readonly: true) %>
+    <%= hidden_field_tag(:linkable_type, @note.class, readonly: true) %>
 
-  <%= button_tag(type: "submit", :name => "Link it", class:"btn-custom")  do %>Link it<% end %>
-<% end %>
+    <%= collection_select(:idea_id, :ids, @ideas, :id, :expression, {}, {multiple: true}) %>
+  </div>
+  <div class="col-md-1">
+      <%= button_tag(type: "submit", :name => "Link it", class:"btn-custom")  do %> Link it >> <% end %>
+    <% end %>
+  </div>
+  <div class="col-md-5">
+    <div class="panel" style="padding=0.2rem">
+      <hr>
+      <% @linked_ideas.each do |idea| %>
+        <%= idea.expression %>
+        |<%= link_to "<i class='fi-eye'></i>".html_safe , idea_path(idea) %>
+        |<%= link_to "<i class='fi-x'></i>".html_safe , controller: "links", action: "destroy", id: idea.link(@note) %>
+
+        <br><hr>
+      <% end %>
+    </div>
+  </div>
+</div>

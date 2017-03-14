@@ -17,7 +17,7 @@ class ShelvesControllerTest < ActionController::TestCase
   end
 
   test "should create shelf" do
-    assert_difference('Shelve.count') do
+    assert_difference('Shelf.count') do
       post :create, shelf: {  }
     end
 
@@ -40,7 +40,7 @@ class ShelvesControllerTest < ActionController::TestCase
   end
 
   test "should destroy shelf" do
-    assert_difference('Shelve.count', -1) do
+    assert_difference('Shelf.count', -1) do
       delete :destroy, id: @shelf
     end
 

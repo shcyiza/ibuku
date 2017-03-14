@@ -24,7 +24,11 @@ class NotesController < ApplicationController
   # GET /notes/1
   # GET /notes/1.json
   def show
-    @origin = @note.origin
+    if @note.user_id == current_user.id
+      @origin = @note.origin
+    else
+      redirect_to notes_path, notice: "You  don't have acces to this note."
+    end
   end
 
   # GET /notes/new
@@ -34,7 +38,11 @@ class NotesController < ApplicationController
 
   # GET /notes/1/edit
   def edit
-    @origin = @note.origin
+    if @note.user_id == current_user.id
+      @origin = @note.origin
+    else
+      redirect_to notes_path, notice: "You  don't have acces to this note."
+    end
   end
 
   # POST /notes
@@ -45,7 +53,7 @@ class NotesController < ApplicationController
     respond_to do |format|
       if @note.save
         @origin = @note.origin
-        format.html { redirect_to :back, notice: 'Note was successfully created.' }
+        format.html { redirect_back fallback_location: root_path, notice: 'Note was successfully created.' }
         format.json { render :show, status: :created, location: @note }
       else
         format.html { render :new }
@@ -80,9 +88,14 @@ class NotesController < ApplicationController
   end
 
   def link_to_ideas
-    @link = Link.new
-    @ideas = Idea.linkable_for @note, current_user
-    @linked_ideas = Idea.linked_to @note, current_user
+    if @note.user == current_user
+      @origin = @note.origin
+      @link = Link.new
+      @ideas = Idea.linkable_for(@note, current_user)
+      @linked_ideas = Idea.linked_to(@note, current_user)
+    else
+      redirect_to notes_path, notice: "You  don't have acces to this note."
+    end
   end
 
   private
